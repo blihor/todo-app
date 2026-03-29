@@ -33,7 +33,9 @@ func main() {
 		client: client,
 	}
 
-	if err := app.run(nil); err != nil {
+	router := CreateRoutes(app.logger, app.client, app.config)
+
+	if err := app.run(router); err != nil {
 		logger.Error("Server failed to start", "error", err)
 		os.Exit(1)
 	}
