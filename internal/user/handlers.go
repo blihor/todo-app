@@ -21,7 +21,7 @@ func NewHandler(service *service, logger *slog.Logger) *handler {
 	}
 }
 
-func (h *handler) GetUserByID(w http.ResponseWriter, r *http.Request) {
+func (h *handler) GetByID(w http.ResponseWriter, r *http.Request) {
 	id, err, status := h.getIDFromRequest(r)
 	if err != nil {
 		h.logger.Error("error", err)
@@ -48,7 +48,7 @@ func (h *handler) GetUserByID(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func (h *handler) CreateUser(w http.ResponseWriter, r *http.Request) {
+func (h *handler) Create(w http.ResponseWriter, r *http.Request) {
 	dto := &CreateUserDTO{}
 
 	if err := json.NewDecoder(r.Body).Decode(dto); err != nil {
@@ -75,7 +75,7 @@ func (h *handler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	w.Write(data)
 }
 
-func (h *handler) DeleteUserByID(w http.ResponseWriter, r *http.Request) {
+func (h *handler) DeleteByID(w http.ResponseWriter, r *http.Request) {
 	id, err, status := h.getIDFromRequest(r)
 	if err != nil {
 		h.logger.Error("error", err)
@@ -101,7 +101,7 @@ func (h *handler) DeleteUserByID(w http.ResponseWriter, r *http.Request) {
 	w.Write(data)
 }
 
-func (h *handler) UpdateUserByID(w http.ResponseWriter, r *http.Request) {
+func (h *handler) UpdateByID(w http.ResponseWriter, r *http.Request) {
 	id, err, status := h.getIDFromRequest(r)
 	if err != nil {
 		h.logger.Error("error", err)

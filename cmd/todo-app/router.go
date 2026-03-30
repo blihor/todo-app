@@ -24,10 +24,10 @@ func CreateRoutes(logger *slog.Logger, client *mongo.Client, cfg *config.Config)
 
 	jwtMiddleware := middleware.NewMiddleware(authService, logger)
 
-	mux.HandleFunc("GET /users/{id}", jwtMiddleware.Protect(userHandler.GetUserByID))
-	mux.HandleFunc("POST /users", jwtMiddleware.Protect(userHandler.CreateUser))
-	mux.HandleFunc("DELETE /users/{id}", jwtMiddleware.Protect(userHandler.DeleteUserByID))
-	mux.HandleFunc("PUT /users/{id}", jwtMiddleware.Protect(userHandler.UpdateUserByID))
+	mux.HandleFunc("GET /users/{id}", jwtMiddleware.Protect(userHandler.GetByID))
+	mux.HandleFunc("POST /users", jwtMiddleware.Protect(userHandler.Create))
+	mux.HandleFunc("DELETE /users/{id}", jwtMiddleware.Protect(userHandler.DeleteByID))
+	mux.HandleFunc("PUT /users/{id}", jwtMiddleware.Protect(userHandler.UpdateByID))
 
 	return mux
 }
