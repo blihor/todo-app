@@ -22,14 +22,14 @@ type UserService interface {
 type service struct {
 	userService UserService
 	logger      *slog.Logger
-	sercetJwt   string
+	secretJwt   string
 }
 
 func NewService(userService UserService, logger *slog.Logger, secretJwt string) *service {
 	return &service{
 		userService: userService,
 		logger:      logger,
-		sercetJwt:   secretJwt,
+		secretJwt:   secretJwt,
 	}
 }
 
@@ -45,7 +45,7 @@ func (s *service) Login(ctx context.Context, dto *UserLoginDTO) (string, error, 
 		return "", err, http.StatusUnauthorized
 	}
 
-	token, err := GenerateToken(user.ID, []byte(s.sercetJwt))
+	token, err := s.GenerateToken(user.ID)
 	if err != nil {
 		s.logger.Error("Failed to signed jwt token", "error", err)
 		return "", nil, http.StatusInternalServerError
